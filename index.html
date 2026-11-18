@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tranqui — La primera plataforma integral para la gestión de todas tus deudas</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+:root{
+  --verde:#25c78b;
+  --verde-dark:#1fae79;
+  --verde-suave:#e9f8f1;
+  --navy:#1b2b4b;
+  --navy-soft:#2c3b57;
+  --gris-texto:#4a5768;
+  --gris-linea:#e3e8ee;
+}
+
+*{box-sizing:border-box;margin:0;padding:0}
+html{height:100%}
+body{
+  font-family:'Poppins','Helvetica Neue',Arial,sans-serif;
+  color:var(--navy);
+  background:#fff;
+  -webkit-font-smoothing:antialiased;
+  min-height:100%;
+  display:flex;
+  flex-direction:column;
+}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:0;background:none}
+
+/* ===== Barra superior ===== */
+.doubt-bar{
+  background:var(--verde-suave);
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  padding:9px 44px 9px 16px;
+  font-size:13.5px;color:var(--navy-soft);
+  position:relative;flex-wrap:wrap;text-align:center;
+}
+.doubt-bar strong{font-weight:600}
+.doubt-bar .phone{display:inline-flex;align-items:center;gap:6px;font-weight:600;color:var(--navy)}
+.doubt-bar .phone svg{width:15px;height:15px;fill:var(--navy)}
+.doubt-close{
+  position:absolute;right:14px;top:50%;transform:translateY(-50%);
+  width:26px;height:26px;border-radius:50%;display:grid;place-items:center;
+  transition:background .2s;
+}
+.doubt-close:hover{background:rgba(27,43,75,.08)}
+.doubt-close::before,.doubt-close::after{content:'';position:absolute;width:12px;height:1.6px;background:var(--navy)}
+.doubt-close::before{transform:rotate(45deg)}
+.doubt-close::after{transform:rotate(-45deg)}
+
+/* ===== Header ===== */
+.site-header{background:#fff;position:sticky;top:0;z-index:60}
+.header-inner{max-width:1240px;margin:0 auto;padding:18px 32px;display:flex;align-items:center;gap:30px}
+
+.brand{position:relative;display:inline-block;flex:0 0 auto;padding-bottom:9px}
+.brand-word{font-size:30px;font-weight:700;letter-spacing:-1.2px;color:var(--verde);line-height:1}
+.brand-smile{position:absolute;left:52%;bottom:0;width:44%;height:9px;color:var(--verde)}
+
+.main-nav{display:flex;gap:30px;margin-left:auto;align-items:center}
+.main-nav a{font-size:15px;font-weight:500;color:var(--navy-soft);padding:6px 0;position:relative;transition:color .2s}
+.main-nav a::after{content:"";position:absolute;left:0;bottom:0;width:0;height:2px;background:var(--verde);transition:width .25s}
+.main-nav a:hover{color:var(--navy)}
+.main-nav a:hover::after{width:100%}
+
+.btn-nav{
+  background:var(--verde);color:#fff;font-size:14px;font-weight:600;
+  padding:13px 26px;border-radius:8px;white-space:nowrap;
+  transition:background .2s, transform .2s;
+}
+.btn-nav:hover{background:var(--verde-dark);transform:translateY(-1px)}
+
+.burger{display:none;width:42px;height:42px;border-radius:10px;margin-left:auto}
+.burger span{display:block;height:2px;background:var(--navy);margin:5px 9px}
+.burger span:nth-child(2){background:var(--verde)}
+
+/* ===== Hero ===== */
+.hero{
+  flex:1;position:relative;overflow:hidden;
+  background:
+    radial-gradient(760px 520px at 88% 34%, rgba(37,199,139,.10), transparent 68%),
+    linear-gradient(180deg,#ffffff 0%,#f2fbf7 100%);
+  padding:48px 32px 72px;
+}
+.hero-inner{
+  max-width:1240px;margin:0 auto;
+  display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.02fr);
+  gap:44px;align-items:center;
+}
+
+.hero-copy{max-width:560px}
+.hero-copy h1{
+  font-size:clamp(32px,3.6vw,50px);
+  font-weight:700;line-height:1.16;letter-spacing:-1px;color:var(--navy);
+}
+.hero-copy h1 .hl{color:var(--verde)}
+.hero-copy .lead{
+  margin-top:22px;font-size:16.5px;font-weight:300;line-height:1.7;
+  color:var(--gris-texto);max-width:52ch;
+}
+.consult-label{
+  margin-top:34px;font-size:14.5px;font-weight:600;line-height:1.55;
+  color:var(--navy);max-width:48ch;
+}
+.consult-row{
+  margin-top:12px;display:flex;max-width:470px;
+  border:1px solid var(--gris-linea);border-radius:8px;overflow:hidden;background:#fff;
+  transition:box-shadow .2s, border-color .2s;
+}
+.consult-row:focus-within{border-color:var(--verde);box-shadow:0 0 0 4px rgba(37,199,139,.16)}
+.consult-row input{
+  flex:1;min-width:0;font-family:inherit;font-size:15px;font-weight:300;
+  color:var(--navy);border:0;background:transparent;padding:17px 16px;
+}
+.consult-row input::placeholder{color:#9aa5b3}
+.consult-row input:focus{outline:none}
+.consult-row button{
+  background:var(--verde);color:#fff;font-size:13.5px;font-weight:700;
+  letter-spacing:.6px;text-transform:uppercase;padding:0 26px;white-space:nowrap;
+  transition:background .2s;
+}
+.consult-row button:hover{background:var(--verde-dark)}
+
+.form-status{
+  margin-top:12px;font-size:13px;font-weight:600;color:var(--verde-dark);
+  opacity:0;transform:translateY(4px);transition:opacity .3s, transform .3s;
+}
+.form-status.show{opacity:1;transform:translateY(0)}
+
+/* ============================================================
+   ESPACIO PARA LA IMAGEN (la imagen ya trae todo el diseño)
+   ============================================================ */
+.hero-visual{
+  width:100%;
+  max-width:620px;
+  margin-left:auto;
+  aspect-ratio:1 / 1;
+}
+.img-slot{
+  position:relative;
+  width:100%;
+  height:100%;
+  display:grid;
+  place-items:center;
+  border:2px dashed #cbd8e2;
+  border-radius:24px;
+  background:#f7f9fb;
+  overflow:hidden;
+}
+.img-slot .ph-label{
+  position:absolute;
+  inset:0;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  padding:0 24px;
+  font-size:12.5px;
+  font-weight:600;
+  letter-spacing:1.4px;
+  text-transform:uppercase;
+  line-height:1.9;
+  color:#9fb0be;
+  pointer-events:none;
+}
+.img-slot img{
+  position:relative;
+  z-index:2;
+  width:100%;
+  height:100%;
+  object-fit:contain;
+  border-radius:24px;
+}
+
+/* ===== Footer ===== */
+.site-footer{
+  background:var(--navy);color:rgba(255,255,255,.66);
+  padding:34px 32px;font-size:13px;font-weight:300;
+}
+.footer-inner{max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.footer-inner a:hover{color:var(--verde)}
+
+/* ===== Modal de contacto ===== */
+.advisor-widget{
+  position:fixed;right:32px;bottom:32px;width:320px;z-index:999;
+  background:var(--verde-dark);border-radius:28px;
+  box-shadow:0 20px 45px rgba(0,0,0,.38);
+  padding:30px 24px 24px;
+  display:none;opacity:0;transform:translateY(20px);
+  transition:opacity .4s ease, transform .4s ease;
+  flex-direction:column;align-items:center;text-align:center;
+}
+.advisor-widget.show{display:flex;opacity:1;transform:translateY(0)}
+
+.advisor-close{
+  position:absolute;right:16px;bottom:16px;width:34px;height:34px;
+  background:#fff;border-radius:50%;display:grid;place-items:center;
+  cursor:pointer;box-shadow:0 4px 10px rgba(0,0,0,.2);
+  transition:transform .2s;z-index:2;
+}
+.advisor-close:hover{transform:scale(1.1)}
+.advisor-close::before,.advisor-close::after{content:'';position:absolute;width:14px;height:2px;background:#333}
+.advisor-close::before{transform:rotate(45deg)}
+.advisor-close::after{transform:rotate(-45deg)}
+
+.advisor-avatar-box{
+  position:relative;width:140px;height:140px;border-radius:24px;overflow:hidden;
+  background:rgba(255,255,255,.55);border:2px dashed rgba(255,255,255,.85);
+  margin-bottom:14px;box-shadow:0 8px 20px rgba(0,0,0,.22);
+  display:grid;place-items:center;
+}
+.advisor-avatar-box .ph{
+  position:absolute;inset:0;display:grid;place-items:center;text-align:center;
+  font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  color:#fff;line-height:1.7;padding:0 12px;pointer-events:none;
+}
+.advisor-avatar-box img{position:relative;z-index:2;width:100%;height:100%;object-fit:cover;border-radius:22px}
+
+.advisor-heading{color:#fff;font-size:21px;font-weight:800;line-height:1.25}
+.advisor-subtext{color:rgba(255,255,255,.9);font-size:13.5px;margin-top:3px}
+.advisor-badge{
+  margin-top:10px;margin-bottom:20px;background:#fff;color:#333;
+  font-size:12px;font-weight:700;padding:5px 14px;border-radius:20px;display:inline-block;
+}
+.advisor-actions{width:100%;display:flex;flex-direction:column;gap:12px;margin-bottom:12px}
+.advisor-btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  width:100%;padding:14px 16px;border-radius:16px;
+  font-size:14px;font-weight:800;text-transform:uppercase;letter-spacing:.4px;
+  transition:transform .2s, filter .2s;
+}
+.advisor-btn:hover{transform:translateY(-2px);filter:brightness(1.05)}
+.advisor-btn svg{width:20px;height:20px;flex-shrink:0}
+.btn-wa{background:#52d069;color:#fff}
+.btn-call{background:#32a5e7;color:#fff}
+
+/* ===== Responsive ===== */
+@media (max-width:1024px){
+  .main-nav{display:none}
+  .burger{display:block}
+  .hero-inner{grid-template-columns:1fr;gap:44px}
+  .hero-copy{max-width:none}
+  .hero-visual{max-width:520px;margin:0 auto}
+}
+
+@media (max-width:720px){
+  .hero{padding:34px 16px 56px}
+  .header-inner{padding:14px 18px}
+  .brand-word{font-size:26px}
+  .doubt-bar{font-size:12.5px;padding-right:38px}
+  .hero-copy h1{letter-spacing:-.6px}
+  .consult-row{max-width:none}
+  .consult-row button{padding:0 18px;font-size:12px}
+  .hero-visual{max-width:none}
+  .img-slot,.img-slot img{border-radius:18px}
+
+  .advisor-widget{
+    right:14px;bottom:14px;width:calc(100% - 28px);max-width:260px;
+    padding:24px 20px 20px;border-radius:24px;margin:0 auto;
+  }
+  .advisor-avatar-box{width:105px;height:105px;border-radius:20px;margin-bottom:12px}
+  .advisor-avatar-box img{border-radius:18px}
+  .advisor-heading{font-size:18px}
+  .advisor-subtext{font-size:12px}
+  .advisor-badge{font-size:11px;margin-top:8px;margin-bottom:18px;padding:4px 12px}
+  .advisor-actions{gap:10px;margin-bottom:10px}
+  .advisor-btn{padding:12px 14px;border-radius:14px;font-size:13px}
+  .advisor-btn svg{width:18px;height:18px}
+  .advisor-close{right:14px;bottom:14px;width:30px;height:30px}
+  .advisor-close::before,.advisor-close::after{width:12px}
+}
+</style>
+</head>
+<body>
+
+<div class="doubt-bar" id="doubtBar">
+  <span>🤔 <strong>¿Tienes dudas?</strong> Escríbenos o llámanos al</span>
+  <a href="tel:+573009143101" class="phone">
+    <svg viewBox="0 0 24 24"><path d="M6.6 10.8c1.2 2.3 3.1 4.2 5.4 5.4l1.8-1.8c.2-.2.5-.3.8-.2 1 .3 2 .5 3.1.5.4 0 .8.3.8.8V18c0 .4-.3.8-.8.8C10.4 18.8 5.2 13.6 5.2 7.2c0-.4.3-.8.8-.8h2.5c.4 0 .8.3.8.8 0 1 .2 2.1.5 3.1.1.3 0 .6-.2.8l-1.8 1.7z"/></svg>
+    +57 300 914 3101
+  </a>
+  <button class="doubt-close" id="doubtClose" aria-label="Cerrar"></button>
+</div>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="#" class="brand" data-msg="Hola, quiero información general de Tranqui.">
+      <span class="brand-word">tranqui</span>
+      <svg class="brand-smile" viewBox="0 0 60 12" aria-hidden="true">
+        <path d="M2 3 Q30 14 58 3" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round"/>
+      </svg>
+    </a>
+
+    <nav class="main-nav">
+      <a href="#" data-msg="Hola, quisiera información de Inicio.">Inicio</a>
+      <a href="#" data-msg="Hola, quiero conocer más sobre Tranqui.">Conoce A Tranqui</a>
+      <a href="#" data-msg="Hola, quiero leer el Blog.">Blog</a>
+    </nav>
+
+    <a href="#" class="btn-nav" data-msg="Hola, quiero consultar mis opciones de negociación.">Consultar opciones</a>
+    <button class="burger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<main class="hero">
+  <div class="hero-inner">
+
+    <div class="hero-copy">
+      <h1>La primera plataforma integral para <span class="hl">la gestión de todas tus deudas</span></h1>
+      <p class="lead">Monitorea y negocia tus deudas 100% en línea, sin papeleo. Aprovecha los mejores descuentos para saldarlas y recuperar tu tranquilidad financiera.</p>
+
+      <p class="consult-label">Consulta con tu número de documento para verificar si tenemos opciones de negociación para tus deudas en mora</p>
+
+      <form id="consultForm" novalidate>
+        <div class="consult-row">
+          <input type="text" id="documento" name="documento" placeholder="Ej: 12223334444" inputmode="numeric" aria-label="Número de cédula" required>
+          <button type="submit">Consultar</button>
+        </div>
+        <span class="form-status" id="formStatus">Redirigiendo a WhatsApp...</span>
+      </form>
+    </div>
+
+    <!-- ============================================================
+         AQUÍ VA TU IMAGEN (ya trae el diseño completo)
+         Solo cambia el nombre del archivo por el tuyo, o pega la ruta.
+         ============================================================ -->
+    <div class="hero-visual">
+      <div class="img-slot">
+        <span class="ph-label">Espacio para la imagen</span>
+        <img src="banner.png" alt="Asesora Tranqui">
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-inner">
+    <span>© Tranqui 2026. Todos los derechos reservados.</span>
+    <span><a href="#" data-msg="Hola, quiero consultar la política de tratamiento de datos.">Política de tratamiento de datos</a></span>
+  </div>
+</footer>
+
+<aside class="advisor-widget" id="advisorWidget">
+  <div class="advisor-close" id="closeAdvisor"></div>
+
+  <div class="advisor-avatar-box">
+    <span class="ph">Espacio para imagen</span>
+    <img src="asesora.jpeg" alt="Asesora">
+  </div>
+
+  <div class="advisor-heading">¡Hola! 👋 Soy tu asesora</div>
+  <div class="advisor-subtext">atención personalizada.</div>
+  <div class="advisor-badge">• Atención personalizada</div>
+
+  <div class="advisor-actions">
+    <a href="#" data-msg="Hola, estoy en el sitio web y me gustaría hablar con una asesora por WhatsApp." target="_blank" class="advisor-btn btn-wa">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.83 9.83 0 0 0 12.04 2zm5.8 14.09c-.25.69-1.44 1.32-1.99 1.4-.51.08-1.15.11-1.85-.12-.43-.13-.98-.32-1.68-.62-2.96-1.28-4.89-4.26-5.04-4.46-.15-.2-1.2-1.6-1.2-3.05 0-1.45.76-2.16 1.03-2.46.27-.3.59-.37.79-.37.2 0 .4 0 .57.01.18.01.43-.07.67.51.25.6.85 2.05.93 2.2.07.15.12.32.02.52-.1.2-.2.32-.35.5-.15.17-.31.39-.44.52-.15.15-.3.31-.13.61.17.3.76 1.25 1.63 2.02 1.12 1 2.06 1.31 2.36 1.46.3.15.47.13.65-.08.17-.2.75-.87.95-1.17.2-.3.4-.25.67-.15.27.1 1.72.81 2.02.96.3.15.5.22.57.35.07.12.07.72-.18 1.41z"/></svg>
+      HABLAR POR WHATSAPP
+    </a>
+    <a href="tel:+576017418962" class="advisor-btn btn-call">
+      <svg viewBox="0 0 24 24" fill="currentColor"><path d="M6.6 10.8c1.2 2.3 3.1 4.2 5.4 5.4l1.8-1.8c.2-.2.5-.3.8-.2 1 .3 2 .5 3.1.5.4 0 .8.3.8.8V18c0 .4-.3.8-.8.8C10.4 18.8 5.2 13.6 5.2 7.2c0-.4.3-.8.8-.8h2.5c.4 0 .8.3.8.8 0 1 .2 2.1.5 3.1.1.3 0 .6-.2.8l-1.8 1.7z"/></svg>
+      LLAMAR AHORA
+    </a>
+  </div>
+</aside>
+
+<script>
+  const PHONE_NUMBER = "573009143101";
+
+  function openWhatsApp(customText){
+    window.open(`https://wa.me/${PHONE_NUMBER}?text=${encodeURIComponent(customText)}`, '_blank');
+  }
+
+  document.querySelectorAll('[data-msg]').forEach(el => {
+    el.addEventListener('click', e => {
+      e.preventDefault();
+      openWhatsApp(el.getAttribute('data-msg'));
+    });
+  });
+
+  const form = document.getElementById('consultForm');
+  const status = document.getElementById('formStatus');
+
+  form.addEventListener('submit', e => {
+    e.preventDefault();
+    const doc = document.getElementById('documento').value.trim();
+    if (!doc){ document.getElementById('documento').focus(); return; }
+    status.classList.add('show');
+    setTimeout(() => {
+      openWhatsApp(`Hola, quiero consultar opciones de negociación para mis deudas en mora. Documento: ${doc}`);
+      status.classList.remove('show');
+      form.reset();
+    }, 700);
+  });
+
+  document.getElementById('documento').addEventListener('input', e => {
+    e.target.value = e.target.value.replace(/[^\d\s]/g, '');
+  });
+
+  document.getElementById('doubtClose').addEventListener('click', () => {
+    document.getElementById('doubtBar').remove();
+  });
+
+  const widget = document.getElementById('advisorWidget');
+  window.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => widget.classList.add('show'), 2000);
+  });
+  document.getElementById('closeAdvisor').addEventListener('click', () => widget.classList.remove('show'));
+</script>
+
+</body>
+</html>
